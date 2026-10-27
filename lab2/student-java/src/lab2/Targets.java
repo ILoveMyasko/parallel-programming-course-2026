@@ -1,6 +1,9 @@
 package lab2;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 import java.util.function.Supplier;
 
 /** Programs under test. setup() spawns threads; check() returns null if the run is fine. */
