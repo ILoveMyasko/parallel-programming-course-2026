@@ -1,17 +1,30 @@
 package org.main;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+
+import org.main.benchmark.Benchmark;
+import org.main.benchmark.SnapshotTest;
+import org.main.benchmark.ValuesGenerator;
+import org.main.collector.EmptyLockCollector;
+import org.main.collector.ShardedLockCollector;
+import org.main.collector.SingleThreadedCollector;
+import org.main.collector.SynchronizedCollector;
+
 public class Main {
     static void main() {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        IO.println(String.format("Hello and welcome!"));
+        long[] values = ValuesGenerator.generateValues();
+        Benchmark benchmark = new Benchmark();
+        try {
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            IO.println("i = " + i);
+            //System.out.println(benchmark.measurePoint(new SingleThreadedCollector(),values,1)); // этап 0
+
+            //benchmark.measureAll("Этап 1 - Synchronized", SynchronizedCollector::new, values);
+            // benchmark.measureAll("Этап 1 - Empty Synchronized", EmptyLockCollector::new, values);
+
+            //benchmark.measureAll("Этап 2 - Sharded", ShardedLockCollector::new, values);
+            SnapshotTest test = new SnapshotTest();
+            test.runTest(new ShardedLockCollector(), values);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
         }
     }
 }
