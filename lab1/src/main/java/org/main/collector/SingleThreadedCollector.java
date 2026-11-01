@@ -12,7 +12,7 @@ public class SingleThreadedCollector implements MetricsCollector{
     private long max;
 
     public SingleThreadedCollector(){
-        this.buckets = new long[256];
+        this.buckets = new long[BUCKET_COUNT];
         this.count = 0;
         this.sum = 0;
         this.max = Long.MIN_VALUE;
@@ -21,7 +21,7 @@ public class SingleThreadedCollector implements MetricsCollector{
 
     @Override
     public void record(long value) {
-        int bucketIndex = (int) Math.min(value / 4, 255); // value >= 1024 ? 255 : (int)(value >> 2);
+        int bucketIndex = (int) Math.min(value / 4, BUCKET_COUNT - 1); // value >= 1024 ? 255 : (int)(value >> 2);
         buckets[bucketIndex]++;
         count++;
         sum += value;
