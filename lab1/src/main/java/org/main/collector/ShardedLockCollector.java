@@ -32,6 +32,8 @@ public class ShardedLockCollector implements MetricsCollector{
         synchronized (locks[bucketIndex % LOCK_COUNT]) {
             buckets[bucketIndex]++;
         }
+        // between these lines we can get torn snapshot where sum > count (4 out of 10000)?
+        // but usually we will get sum < count because we have already made multiple increments of count even with 1 thread
         count.incrementAndGet();
         sum.addAndGet(value);
 
