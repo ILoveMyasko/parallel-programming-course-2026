@@ -64,10 +64,9 @@ public class SnapshotTest {
 
         double brokenPercent = (double) inconsistentCount / SNAPSHOT_COUNT * 100.0;
 
-        // Печатаем аккуратный отчёт для таблицы в README
-        System.out.println("==========================================================================================");
+
+        System.out.println("======================================================");
         System.out.println("РЕЗУЛЬТАТЫ СТРЕСС-ТЕСТА СОГЛАСОВАННОСТИ: ");
-        System.out.println("==========================================================================================");
         System.out.printf("Всего снимков:          %d\n", SNAPSHOT_COUNT);
         System.out.printf("Доля битых снимков:     %.2f%% (%d из %d)\n", brokenPercent, inconsistentCount, SNAPSHOT_COUNT);
         System.out.printf("Снимок: sum < count:    %d раз\n", sumLessThanCount);
@@ -75,8 +74,7 @@ public class SnapshotTest {
         System.out.printf("Реально вызовов:        %d\n", totalWritersOps);
         System.out.printf("Итоговый count:         %d\n", finalCount);
         System.out.printf("Итоговый diff (count - вызовы): %d\n", finalDiff);
-        System.out.println("==========================================================================================\n");
-
+        System.out.println("======================================================\n");
     }
 
 }
